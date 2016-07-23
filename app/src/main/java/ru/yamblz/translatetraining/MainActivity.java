@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity implements StartFragment.OnF
         Fragment mainFragment = fragmentManager.findFragmentById(R.id.container);
 
         if (mainFragment == null) {
-            mainFragment = new AssignmentFragment();
+            mainFragment = new StartFragment();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.replace(R.id.container, mainFragment);
             transaction.commit();
@@ -32,4 +32,5 @@ public class MainActivity extends AppCompatActivity implements StartFragment.OnF
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
 }

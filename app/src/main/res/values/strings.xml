@@ -4,4 +4,23 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="api_key">dict.1.1.20160723T103526Z.a6023816b945356b.da2a4a3bad61c82cef86d45a6acd69d2b04e6f02</string>
+
+    <string name="start_menu.titles.cards">Карточки</string>
+    <string name="start_menu.titles.saying">Проговаривание слов</string>
+    <string name="start_menu.titles.hear">Слово на слух</string>
+    <string name="start_menu.titles.pairing">Поиск пары</string>
+    <string name="start_menu.titles.compose">Составление слова</string>
+    <string name="start_menu.titles.true_false">Верно - неверно</string>
+    <string name="start_menu.titles.answer">Выбор перевода</string>
+    <string name="start_menu.titles.images">Перевод по картинке</string>
+
+    <string name="start_menu.descriptions.cards">Рассортируйте карточки со словами</string>
+    <string name="start_menu.descriptions.saying">Проговорите услышанные слова</string>
+    <string name="start_menu.descriptions.hear">Введите по буквам услышанные слова</string>
+    <string name="start_menu.descriptions.pairing">Установите соответствие пары оригинал - перевод</string>
+    <string name="start_menu.descriptions.compose">Соберите перевод слова из предложенных букв</string>
+    <string name="start_menu.descriptions.true_false">Определите, верно ли указан перевод</string>
+    <string name="start_menu.descriptions.answer">Выберите верный вариант перевода из 4 вариантов</string>
+    <string name="start_menu.descriptions.images">Введите перевод изображения</string>
+
 </resources>

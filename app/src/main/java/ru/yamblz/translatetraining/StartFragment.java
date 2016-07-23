@@ -1,30 +1,35 @@
 package ru.yamblz.translatetraining;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-public class StartFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+public class StartFragment extends Fragment implements OnTitleClickListener, OnStartClickListener {
 
     enum FragmentCode {
-        CARDS, SPEAK, LISTEN, SEARCH, BUILD, COMBO, CHOOSE, TRANSLATE
+        CARDS, SPEAK, LISTEN, SEARCH, COMPOSE, COMBO, CHOOSE, TRANSLATE
     }
-
-    private boolean isOpened = false;
 
     private OnFragmentInteractionListener mListener;
-
-    public static StartFragment newInstance() {
-        return new StartFragment();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,143 +56,81 @@ public class StartFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onTitleClick(int position) {
+
+    }
+
+    @Override
+    public void onStartClickListener(int position) {
+        mListener.onItemClick(null);
+    }
+
     public interface OnFragmentInteractionListener {
         void onItemClick(FragmentCode fragmentCode);
     }
 
     private void initViews(View view) {
+        RecyclerView rvStartMenu = (RecyclerView) view.findViewById(R.id.rv_start_menu);
+
+        //if (adapter == null) {
+        StartMenuAdapter adapter = new StartMenuAdapter(this, this);
+        rvStartMenu.setAdapter(adapter);
+        //adapter.setData();
+        //}
+
+
+
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
 
-        //((LinearLayout) view.findViewById(R.id.ll_ex)).animate().scaleY(0);
-        View ex = view.findViewById(R.id.ll_ex);
-        int width = ((View) ex.getParent()).getWidth();
-        ex.measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        ex.getLayoutParams().height = 0;
-        ex.setVisibility(View.VISIBLE);
-        ex.requestLayout();
-        ex.setLayoutParams(new LinearLayout.LayoutParams(width, 0));
 
 
-
-        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
-
+/*        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Режим обучения");
 
         view.findViewById(R.id.cv_cards).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mListener.onItemClick(FragmentCode.BUILD);
+                mListener.onItemClick(FragmentCode.CARDS);
 
-                /*if (isOpenned)
-                    view.findViewById(R.id.ll_ex).animate().scaleY(0).setDuration(500).init();
-                else
-                    view.findViewById(R.id.ll_ex).animate().scaleY(1).setDuration(500).init();
+                TextView btn = (TextView) view.findViewById(R.id.tv_cards);
 
-                isOpenned = !isOpenned;*/
-
-                TextView btn = (TextView) view.findViewById(R.id.btn_cards);
-
-                if (isOpened) {
-                    //btn.setBackgroundColor(0xfffafafa);
-                    //btn.setTextColor(0xff000000);
-                    collapse(view.findViewById(R.id.ll_ex), btn, 0xfffafafa, 0xff000000);
+                if (isOpened[0]) {
+                    isOpened[0] = false;
+                    collapse(view.findViewById(R.id.ll_ex_cards), btn, 0xfffafafa);
                 } else {
+                    isOpened[0] = false; isOpened[1] = false;
+                    isOpened[0] = true;
+
                     btn.setBackgroundColor(0xffff5252);
                     btn.setTextColor(0xffffffff);
-                    expand(view.findViewById(R.id.ll_ex));
-                }
-
-                isOpened = !isOpened;
-            }
-        });
-    }
-
-    public static void expand(final View v) {
-        v.measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        final int targetHeight = v.getMeasuredHeight();
-        final int width = ((View) v.getParent()).getWidth();
-
-
-        v.getLayoutParams().height = 0;
-        v.setVisibility(View.VISIBLE);
-        Animation a = new Animation()
-        {
-            @Override
-            protected void applyTransformation(float interpolatedTime, Transformation t) {
-                v.getLayoutParams().height = (int) (targetHeight * interpolatedTime);
-                v.requestLayout();
-            }
-
-            @Override
-            public boolean willChangeBounds() {
-                return true;
-            }
-
-        };
-
-        a.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                v.setLayoutParams(new LinearLayout.LayoutParams(width, targetHeight));
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-
-        a.setDuration((int)(targetHeight / v.getContext().getResources().getDisplayMetrics().density));
-        v.startAnimation(a);
-    }
-
-    public static void collapse(final View v, final TextView btn, final int c1, final int c2) {
-        final int initialHeight = v.getMeasuredHeight();
-        final int width = ((View) v.getParent()).getWidth();
-
-        Animation a = new Animation()
-        {
-            @Override
-            protected void applyTransformation(float interpolatedTime, Transformation t) {
-                if(interpolatedTime == 1){
-                    v.setVisibility(View.GONE);
-                }else{
-                    v.getLayoutParams().height = initialHeight - (int)(initialHeight * interpolatedTime);
-                    v.requestLayout();
+                    expand(view.findViewById(R.id.ll_ex_cards));
                 }
             }
-
-            @Override
-            public boolean willChangeBounds() {
-                return true;
-            }
-        };
-
-        a.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                btn.setBackgroundColor(c1);
-                btn.setTextColor(c2);
-                v.setLayoutParams(new LinearLayout.LayoutParams(width, 0));
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
         });
 
-        a.setDuration((int)(initialHeight / v.getContext().getResources().getDisplayMetrics().density));
-        v.startAnimation(a);
+        view.findViewById(R.id.cv_compose).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onItemClick(FragmentCode.COMPOSE);
+
+                TextView btn = (TextView) view.findViewById(R.id.tv_compose);
+
+                if (isOpened[1]) {
+                    isOpened[1] = false;
+                    collapse(view.findViewById(R.id.ll_ex_compose), btn, 0xfffafafa);
+                } else {
+                    isOpened[0] = false; isOpened[1] = false;
+                    isOpened[1] = true;
+
+                    btn.setBackgroundColor(0xffff5722);
+                    btn.setTextColor(0xffffffff);
+                    expand(view.findViewById(R.id.ll_ex_compose));
+                }
+            }
+        });*/
     }
+
+
 
 }
