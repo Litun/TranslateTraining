@@ -12,39 +12,56 @@
         android:layout_height="?attr/actionBarSize"/>
         <!--app:layout_collapseMode="pin"/>-->
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:background="@drawable/banner_img">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="Выберите режим обучения"
-            android:textSize="16sp"
-            android:textColor="#000"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:paddingTop="14dp"
-            android:paddingBottom="14dp"
-            android:paddingRight="24dp"
-            android:paddingLeft="24dp"
-            android:text="Быстрая тренировка"
-            android:textSize="16sp"
-            android:textAllCaps="true"
-            android:background="@color/colorPrimary"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:background="@drawable/banner_img">
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:text="Выберите режим обучения"
+                    android:textSize="16sp"
+                    android:textColor="#000"/>
 
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="80dp"
+                    android:paddingTop="14dp"
+                    android:paddingBottom="14dp"
+                    android:paddingRight="24dp"
+                    android:paddingLeft="24dp"
+                    android:text="Быстрая тренировка"
+                    android:textSize="16sp"
+                    android:textAllCaps="true"
+                    android:background="@color/colorPrimary"/>
 
+            </LinearLayout>
 
+            <com.andexert.expandablelayout.library.ExpandableLayout
+                android:id="@+id/expandableLayout"
+                xmlns:expandable="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                expandable:headerLayout="@layout/item_cards_header"
+                expandable:contentLayout="@layout/item_cards_content"/>
 
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>
