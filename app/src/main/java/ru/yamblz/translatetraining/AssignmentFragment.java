@@ -17,7 +17,7 @@ import butterknife.BindView;
  * A simple {@link Fragment} subclass.
  */
 public class AssignmentFragment extends Fragment {
-
+    private AssignmentPresenter presenter;
 
     public AssignmentFragment() {
         // Required empty public constructor
@@ -30,6 +30,8 @@ public class AssignmentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setRetainInstance(true);
+        presenter = new AssignmentPresenter();
+        presenter.init();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_assignment, container, false);
 //        ButterKnife.bind(this, view);
@@ -43,7 +45,7 @@ public class AssignmentFragment extends Fragment {
         Fragment mainFragment = childFragmentManager.findFragmentById(R.id.assignment_container);
 
         if (mainFragment == null) {
-            mainFragment = new KeyboardAssignmentFragment();
+            mainFragment = new ComposeWordFragment();
             FragmentTransaction transaction = childFragmentManager.beginTransaction();
             transaction.replace(R.id.assignment_container, mainFragment);
             transaction.commit();

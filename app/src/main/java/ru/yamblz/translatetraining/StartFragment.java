@@ -1,8 +1,6 @@
 package ru.yamblz.translatetraining;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
@@ -11,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -81,9 +78,9 @@ public class StartFragment extends Fragment {
                 mListener.onItemClick(FragmentCode.BUILD);
 
                 /*if (isOpenned)
-                    view.findViewById(R.id.ll_ex).animate().scaleY(0).setDuration(500).start();
+                    view.findViewById(R.id.ll_ex).animate().scaleY(0).setDuration(500).init();
                 else
-                    view.findViewById(R.id.ll_ex).animate().scaleY(1).setDuration(500).start();
+                    view.findViewById(R.id.ll_ex).animate().scaleY(1).setDuration(500).init();
 
                 isOpenned = !isOpenned;*/
 
