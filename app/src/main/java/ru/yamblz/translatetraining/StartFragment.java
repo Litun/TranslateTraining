@@ -1,5 +1,6 @@
 package ru.yamblz.translatetraining;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,8 +9,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
+import android.widget.ImageView;
 
 public class StartFragment extends Fragment {
+
+    enum FragmentCode {
+        CARDS, SPEAK, LISTEN, SEARCH, BUILD, COMBO, CHOOSE, TRANSLATE
+    }
 
     private OnFragmentInteractionListener mListener;
 
@@ -20,18 +28,9 @@ public class StartFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_start, container, false);
-
         setRetainInstance(true);
-
         initViews(view);
-
         return view;
-    }
-
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
@@ -52,7 +51,7 @@ public class StartFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
+        void onItemClick(FragmentCode fragmentCode);
     }
 
     private void initViews(View view) {
@@ -60,6 +59,46 @@ public class StartFragment extends Fragment {
 
 
         ((MainActivity) getActivity()).setSupportActionBar(toolbar);
+
+
+        view.findViewById(R.id.cv_cards).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onItemClick(FragmentCode.BUILD);
+            }
+        });
+    }
+
+    public static void expand(final View v) {
+
+
+        v.measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        final int targetHeight = 200;
+
+        // Older versions of android (pre API 21) cancel animations for views with a height of 0.
+        v.getLayoutParams().height = v.getMeasuredHeight();
+        v.setVisibility(View.VISIBLE);
+        Animation a = new Animation()
+        {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                v.getLayoutParams().height = interpolatedTime == 1
+                        ? ViewGroup.LayoutParams.WRAP_CONTENT
+                        : (int)(targetHeight * interpolatedTime);
+                v.requestLayout();
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+
+
+        };
+
+        // 1dp/ms
+        a.setDuration((int)(targetHeight / v.getContext().getResources().getDisplayMetrics().density));
+        v.startAnimation(a);
     }
 
 }
