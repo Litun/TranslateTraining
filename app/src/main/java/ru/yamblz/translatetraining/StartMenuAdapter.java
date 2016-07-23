@@ -132,7 +132,7 @@ public class StartMenuAdapter extends RecyclerView.Adapter<StartMenuAdapter.Star
                     if (isOpened[getAdapterPosition()]) {
                         collapse(expandableLayout, tvTitle, 0xfffafafa);
                     } else {
-                        tvTitle.setBackgroundColor(0xffff5252);
+                        tvTitle.setBackgroundColor(colors[getAdapterPosition()]);
                         tvTitle.setTextColor(0xffffffff);
                         expand(expandableLayout);
                     }
