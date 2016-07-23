@@ -54,14 +54,14 @@ public class StartMenuAdapter extends RecyclerView.Adapter<StartMenuAdapter.Star
             0xff4caf50
     };
     int[] colors2 = {
-            0xd32f2f,
-            0x388e3c,
-            0x7b1fa2,
-            0x0097a7,
-            0xe64a19,
-            0x1976d2,
-            0xd32f2f,
-            0x388e3c
+            0xffd32f2f,
+            0xff388e3c,
+            0xff7b1fa2,
+            0xff0097a7,
+            0xffe64a19,
+            0xff1976d2,
+            0xffd32f2f,
+            0xff388e3c
     };
     boolean[] isOpened = {false,false,false,false,false,false,false,false};
 
