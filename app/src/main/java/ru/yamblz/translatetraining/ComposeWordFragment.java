@@ -31,6 +31,8 @@ public class ComposeWordFragment extends Fragment {
 
     private ComposeWordPresenter presenter;
 
+    @BindView(R.id.root)
+    View root;
     @BindView(R.id.target_text)
     TextView target;
     @BindView(R.id.answer_text)
@@ -113,21 +115,15 @@ public class ComposeWordFragment extends Fragment {
 
     private void checkAnswer() {
         if (wordPair.getEn().equalsIgnoreCase(answerBuilder.toString())) {
-//            new BottomSheet.Builder(this, R.style.BottomSheet_Dialog)
-//                    .title("New")
-//                    .grid() // <-- important part
-//                    .sheet(R.menu.menu_bottom_sheet)
-//                    .listener(new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            // TODO
-//                        }
-//                    }).show();
             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
-            bottomSheetDialog.setTitle("OK");
+            View inflate = getActivity().getLayoutInflater().inflate(R.layout.done_bottomsheet, (ViewGroup) root, false);
+            bottomSheetDialog.setContentView(inflate);
             bottomSheetDialog.show();
         } else {
-
+            BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
+            View inflate = getActivity().getLayoutInflater().inflate(R.layout.fail_bottomsheet, (ViewGroup) root, false);
+            bottomSheetDialog.setContentView(inflate);
+            bottomSheetDialog.show();
         }
     }
 
