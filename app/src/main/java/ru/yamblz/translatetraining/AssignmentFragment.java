@@ -3,9 +3,14 @@ package ru.yamblz.translatetraining;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+
+import butterknife.BindView;
 
 
 /**
@@ -18,12 +23,32 @@ public class AssignmentFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @BindView(R.id.progress)
+    ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setRetainInstance(true);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_assignment, container, false);
+        View view = inflater.inflate(R.layout.fragment_assignment, container, false);
+//        ButterKnife.bind(this, view);
+//        progressBar.setProgress(95);
+        progressBar = (ProgressBar) view.findViewById(R.id.progress);
+//        progressBar.getProgressDrawable().setColorFilter(
+//                getResources().getColor(R.color.colorPrimary), android.graphics.PorterDuff.Mode.SRC_IN);
+
+        FragmentManager childFragmentManager = getChildFragmentManager();
+
+        Fragment mainFragment = childFragmentManager.findFragmentById(R.id.assignment_container);
+
+        if (mainFragment == null) {
+            mainFragment = new KeyboardAssignmentFragment();
+            FragmentTransaction transaction = childFragmentManager.beginTransaction();
+            transaction.replace(R.id.assignment_container, mainFragment);
+            transaction.commit();
+        }
+        return view;
     }
 
 }
