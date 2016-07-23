@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity implements StartFragment.OnF
         Fragment mainFragment = fragmentManager.findFragmentById(R.id.container);
 
         if (mainFragment == null) {
-            mainFragment = new StartFragment();
+            mainFragment = new AssignmentFragment();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.replace(R.id.container, mainFragment);
             transaction.commit();
