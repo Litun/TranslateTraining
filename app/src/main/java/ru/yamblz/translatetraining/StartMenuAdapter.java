@@ -53,6 +53,16 @@ public class StartMenuAdapter extends RecyclerView.Adapter<StartMenuAdapter.Star
             0xffff5858,
             0xff4caf50
     };
+    int[] colors2 = {
+            0xd32f2f,
+            0x388e3c,
+            0x7b1fa2,
+            0x0097a7,
+            0xe64a19,
+            0x1976d2,
+            0xd32f2f,
+            0x388e3c
+    };
     boolean[] isOpened = {false,false,false,false,false,false,false,false};
 
     private OnTitleClickListener onTitleClickListener;
@@ -78,6 +88,7 @@ public class StartMenuAdapter extends RecyclerView.Adapter<StartMenuAdapter.Star
         holder.ivTeaser.setImageResource(teasers[position]);
         holder.tvDescription.setText(descriptions[position]);
         holder.expandableLayout.setBackgroundColor(colors[position]);
+        holder.tvStart.setBackgroundColor(colors2[position]);
 
         int width = holder.container.getWidth();
 
