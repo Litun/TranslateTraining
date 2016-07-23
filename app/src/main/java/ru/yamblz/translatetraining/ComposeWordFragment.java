@@ -1,8 +1,10 @@
 package ru.yamblz.translatetraining;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -110,7 +112,23 @@ public class ComposeWordFragment extends Fragment {
     }
 
     private void checkAnswer() {
+        if (wordPair.getEn().equalsIgnoreCase(answerBuilder.toString())) {
+//            new BottomSheet.Builder(this, R.style.BottomSheet_Dialog)
+//                    .title("New")
+//                    .grid() // <-- important part
+//                    .sheet(R.menu.menu_bottom_sheet)
+//                    .listener(new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            // TODO
+//                        }
+//                    }).show();
+            BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
+            bottomSheetDialog.setTitle("OK");
+            bottomSheetDialog.show();
+        } else {
 
+        }
     }
 
     private void onErase() {

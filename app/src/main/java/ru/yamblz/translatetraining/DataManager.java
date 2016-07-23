@@ -96,6 +96,8 @@ public class DataManager {
                 Call<APIService.APIResponse> translate = service.getTranslate(API_KEY, "en-ru", s);
                 try {
                     Response<APIService.APIResponse> response = translate.execute();
+                    if (!response.isSuccessful())
+                        continue;
                     String translateString = response.body().getTranslate();
                     if (translateString == null)
                         continue;
@@ -112,6 +114,8 @@ public class DataManager {
                 Call<APIService.APIResponse> translate = service.getTranslate(API_KEY, "ru-en", s);
                 try {
                     Response<APIService.APIResponse> response = translate.execute();
+                    if (!response.isSuccessful())
+                        continue;
                     String translateString = response.body().getTranslate();
                     if (translateString == null)
                         continue;
