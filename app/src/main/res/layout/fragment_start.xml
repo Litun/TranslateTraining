@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"/>
+        <!--app:layout_collapseMode="pin"/>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="@drawable/banner_img">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Выберите режим обучения"
+            android:textSize="16sp"
+            android:textColor="#000"/>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
+            android:paddingRight="24dp"
+            android:paddingLeft="24dp"
+            android:text="Быстрая тренировка"
+            android:textSize="16sp"
+            android:textAllCaps="true"
+            android:background="@color/colorPrimary"/>
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>
