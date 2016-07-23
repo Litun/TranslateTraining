@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements StartFragment.OnF
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onItemClick(StartFragment.FragmentCode fragmentCode) {
 
     }
 }
