@@ -12,8 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +25,7 @@ import ru.yamblz.translatetraining.model.WordPair;
 public class ComposeWordFragment extends Fragment {
     public static final String PAIR_KEY = "pair";
     private WordPair wordPair;
+    private StringBuilder answerBuilder = new StringBuilder();
 
     private ComposeWordPresenter presenter;
 
@@ -56,25 +56,82 @@ public class ComposeWordFragment extends Fragment {
         ButterKnife.bind(this, view);
         addLetters(inflater);
         target.setText(wordPair.getRu());
+        answer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onErase();
+            }
+        });
         return view;
     }
 
-    Map<Character, View> keyButtons = new HashMap<>();
+    ArrayList<Key> keys = new ArrayList<>();
 
     private void addLetters(LayoutInflater inflater) {
         String enWord = wordPair.getEn();
-        ArrayList<Character> characters = new ArrayList<>();
-        for (int i = 0; i < enWord.length(); i++)
-            characters.add(enWord.charAt(i));
-        Collections.shuffle(characters);
 
-        for (char c : characters) {
+        for (int i = 0; i < enWord.length(); i++) {
+            Key key = new Key();
+            key.id = i;
+            key.character = enWord.charAt(i);
+            keys.add(key);
+        }
+
+        List<View> keyViews = new ArrayList<>();
+        for (final Key k : keys) {
             View view = inflater.inflate(R.layout.key_letter, keyboard, false);
             TextView letter = (TextView) view.findViewById(R.id.letter);
-            letter.setText(String.valueOf(c));
-            keyboard.addView(view);
-            keyButtons.put(c, view);
+            letter.setText(String.valueOf(k.character));
+            keyViews.add(view);
+            k.view = view;
+            final int id = k.id;
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onKeyClicked(id);
+                }
+            });
         }
+        Collections.shuffle(keyViews);
+        for (View keyView : keyViews) {
+            keyboard.addView(keyView);
+        }
+
+    }
+
+    private void onKeyClicked(int id) {
+        Key key = keys.get(id);
+        answerBuilder.append(key.character);
+        answer.setText(answerBuilder);
+        key.view.setVisibility(View.INVISIBLE);
+
+        if (answerBuilder.length() == wordPair.getEn().length())
+            checkAnswer();
+    }
+
+    private void checkAnswer() {
+
+    }
+
+    private void onErase() {
+        if (answerBuilder.length() == 0)
+            return;
+        int lastI = answerBuilder.length() - 1;
+        char lastC = answerBuilder.charAt(lastI);
+        answerBuilder.deleteCharAt(lastI);
+        answer.setText(answerBuilder);
+        for (Key key : keys) {
+            if (key.character == lastC && key.view.getVisibility() == View.INVISIBLE) {
+                key.view.setVisibility(View.VISIBLE);
+                return;
+            }
+        }
+    }
+
+    static class Key {
+        int id;
+        char character;
+        View view;
     }
 
 }
